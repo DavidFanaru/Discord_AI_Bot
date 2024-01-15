@@ -5,20 +5,6 @@ import os
 load_dotenv()
 
 openai.api_key = os.getenv('CHATGPT_API_KEY')
-
-# def check_for_offensive_content(text):
-#     # Use OpenAI API to analyze text for offensive content
-#     response = openai.ChatCompletion.create(
-#         model="gpt-3.5-turbo",
-#         messages=[
-#             [{"role": "user", "content": 'Tell me True or False if the following text contains a curse word in any language: "{text}"'}]
-#         ]
-#     )
-#     try:
-#         return response['choices'][0]['message']['content'].lower() == 'true'
-#     except (KeyError, IndexError):
-#         # Handle errors and return False in case of issues
-#         return False
     
 def check_for_offensive_content(text):
     # Use OpenAI API to analyze text for offensive content
