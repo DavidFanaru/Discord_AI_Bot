@@ -10,8 +10,8 @@ def check_for_offensive_content(text):
     # Use OpenAI API to analyze text for offensive content
     prompt = f'Tell me True or False if the following text contains a curse word in any language: "{text}"'
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
+        model = "gpt-3.5-turbo",
+        messages = [
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": prompt}
         ]
@@ -19,7 +19,6 @@ def check_for_offensive_content(text):
     try:
         return response['choices'][0]['message']['content'].lower().split()[0] == 'true.'
     except (KeyError, IndexError):
-        # Handle errors and return False in case of issues
         return False
 
 
@@ -34,3 +33,26 @@ def chatgpt_response(prompt):
     if response_dict and len(response_dict) > 0:
         prompt_response = response_dict[0]["text"]
     return prompt_response
+
+def chatgpt_translate(text, language):
+    prompt = f'Translate the following text: "{text}", to the following language: "{language}"'
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )    
+    return response['choices'][0]['message']['content']
+
+def chatgpt_quiz(topic):
+    prompt = f'Please give me a quiz question on the topic: "{topic}", only the question with no introduction and with 4 choices, and separate the correct answer in format Answer: (insert here actual answer)'
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    print(response['choices'][0]['message']['content'])
+    return response['choices'][0]['message']['content']
